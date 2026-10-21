@@ -1,7 +1,26 @@
 import os
 import asyncio
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+
+# --- سيرفر ويب مصغر لإرضاء متطلبات منصة Render ---
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is active and running 24/7!")
+    def log_message(self, format, *args):
+        pass
+
+def run_http_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
+    server.serve_forever()
+
+threading.Thread(target=run_http_server, daemon=True).start()
+# ---------------------------------------------
 
 API_ID = 30270110
 API_HASH = "8916657625ad5550bea8382e44288159"
