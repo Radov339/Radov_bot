@@ -224,12 +224,10 @@ async def handle_text(client: Client, message: Message):
             except Exception as e:
                 await status_msg.edit_text(f"❌ حدث خطأ:\n`{str(e)}`")
 
+async def main():
+    await bot.start()
+    print("🚀 البوت يعمل الآن بنجاح 24/7...")
+    await asyncio.Event().wait()
+
 if __name__ == "__main__":
-    try:
-        loop = asyncio.get_event_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        
-    print("🚀 البوت بالأزرار التفاعلية يعمل الآن...")
-    bot.run()
+    asyncio.run(main())
