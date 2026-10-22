@@ -1,4 +1,5 @@
 import os
+import asyncio
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pyrogram import Client, filters
@@ -224,5 +225,4 @@ async def handle_text(client: Client, message: Message):
                 await status_msg.edit_text(f"❌ حدث خطأ:\n`{str(e)}`")
 
 if __name__ == "__main__":
-    print("🚀 البوت يعمل الآن 24/7...")
     bot.run()
